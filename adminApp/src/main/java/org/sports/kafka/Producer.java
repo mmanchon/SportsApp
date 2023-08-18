@@ -10,6 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PreDestroy;
+
 @Component
 @RequiredArgsConstructor
 public class Producer {
@@ -44,10 +46,19 @@ public class Producer {
             }
         });
 
-        // flush data - synchronous
-        kafkaProducer.flush();
+        incrementCounter();
 
-        // flush and close producer
+    }
+
+    private void incrementCounter() {
+        this.counter += 1;
+    }
+
+    @PreDestroy
+    public void closeKafka() {
+        System.out.println(
+                "Closing kafka");
+        kafkaProducer.flush();
         kafkaProducer.close();
     }
 }
