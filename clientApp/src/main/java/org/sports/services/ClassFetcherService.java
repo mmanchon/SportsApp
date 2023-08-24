@@ -17,13 +17,12 @@ public class ClassFetcherService {
 
     public String getEvent() {
         try{
-            consumer.getEvent();
+           return consumer.getEvent();
         } catch (Exception e) {
             logger.error(e.getMessage());
             return "fail";
 
         }
-        return "success";
     }
 
 }

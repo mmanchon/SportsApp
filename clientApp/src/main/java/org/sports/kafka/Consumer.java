@@ -20,15 +20,18 @@ public class Consumer {
     @Autowired
     private KafkaConsumer<String, String> kafkaConsumer;
 
-    public void getEvent() {
+    public String getEvent() {
 
         ConsumerRecords<String, String> records =
-                    kafkaConsumer.poll(Duration.ofMillis(100));
+                    kafkaConsumer.poll(Duration.ofMillis(10000));
+
+        StringBuilder result = new StringBuilder();
 
             for (ConsumerRecord<String, String> record : records){
                 log.info("Key: " + record.key() + ", Value: " + record.value());
                 log.info("Partition: " + record.partition() + ", Offset:" + record.offset());
+                result.append(record.value());
             }
-
+        return result.toString();
     }
 }

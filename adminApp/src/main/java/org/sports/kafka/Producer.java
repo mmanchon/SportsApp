@@ -24,10 +24,10 @@ public class Producer {
     public void emitEvent() {
         String topic = "demo_java";
         String value = "hello world " + Integer.toString(counter);
-        String key = "id_" + Integer.toString(counter);
+       // String key = "id_" + Integer.toString(counter);
 
         ProducerRecord<String, String> producerRecord =
-                new ProducerRecord<>(topic, key, value);
+                new ProducerRecord<>(topic, value);
 
         kafkaProducer.send(producerRecord, new Callback() {
             public void onCompletion(RecordMetadata recordMetadata, Exception e) {
