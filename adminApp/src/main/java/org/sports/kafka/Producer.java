@@ -1,5 +1,6 @@
 package org.sports.kafka;
 
+import jakarta.annotation.PreDestroy;
 import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.producer.Callback;
 import org.apache.kafka.clients.producer.KafkaProducer;
@@ -9,8 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import javax.annotation.PreDestroy;
 
 @Component
 @RequiredArgsConstructor
@@ -22,11 +21,11 @@ public class Producer {
     private int counter = 0;
 
     public void emitEvent() {
-        String topic = "demo_java";
+        String topic = "class-topic";
         String value = "hello world " + Integer.toString(counter);
        // String key = "id_" + Integer.toString(counter);
 
-        ProducerRecord<String, String> producerRecord =
+        final ProducerRecord<String, String> producerRecord =
                 new ProducerRecord<>(topic, value);
 
         kafkaProducer.send(producerRecord, new Callback() {

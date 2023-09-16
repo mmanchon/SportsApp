@@ -23,7 +23,7 @@ public class Kafka {
     @Bean
     public KafkaConsumer<String, String> kafkaConsumer() {
         String bootstrapServers = "127.0.0.1:9092";
-        String topic = "demo_java";
+        String topic = "class-topic";
 
         // create consumer configs
         Properties properties = new Properties();
